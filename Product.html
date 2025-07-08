@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products by Skin Type - Glamorous Skincare</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --ivory-white: #FFF8F0;
+            --rose-gold: #E8B4A0;
+            --mint-green: #9FD3C7;
+            --text-dark: #333;
+            --text-light: #666;
+            --oily-skin: #4CAF50;
+            --normal-skin: #2196F3;
+            --dry-skin: #FF9800;
+            --combination-skin: #9C27B0;
+            --sensitive-skin: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--ivory-white);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background-color: var(--ivory-white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--mint-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            position: relative;
+        }
+        
+        .logo-icon::before {
+            content: '🌿';
+            font-size: 24px;
+        }
+        
+        .logo h2 {
+            color: var(--rose-gold);
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        .navbar-nav .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--rose-gold);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .btn-signin {
+            background-color: var(--rose-gold);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-signin:hover {
+            background-color: #d4a087;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .cart-icon {
+            position: relative;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            color: var(--rose-gold);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--mint-green);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--ivory-white) 0%, #f5f0e8 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Skin Type Navigation */
+        .skin-type-nav {
+            background-color: white;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--mint-green);
+        }
+        
+        .skin-type-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .skin-type-btn {
+            padding: 15px 30px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .skin-type-btn:hover,
+        .skin-type-btn.active {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .skin-type-btn.oily:hover,
+        .skin-type-btn.oily.active {
+            background-color: var(--oily-skin);
+            border-color: var(--oily-skin);
+        }
+        
+        .skin-type-btn.normal:hover,
+        .skin-type-btn.normal.active {
+            background-color: var(--normal-skin);
+            border-color: var(--normal-skin);
+        }
+        
+        .skin-type-btn.dry:hover,
+        .skin-type-btn.dry.active {
+            background-color: var(--dry-skin);
+            border-color: var(--dry-skin);
+        }
+        
+        .skin-type-btn.combination:hover,
+        .skin-type-btn.combination.active {
+            background-color: var(--combination-skin);
+            border-color: var(--combination-skin);
+        }
+        
+        .skin-type-btn.sensitive:hover,
+        .skin-type-btn.sensitive.active {
+            background-color: var(--sensitive-skin);
+            border-color: var(--sensitive-skin);
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 80px 0;
+            background-color: var(--ivory-white);
+        }
+        
+        .skin-type-section {
+            display: none;
+            margin-bottom: 60px;
+        }
+        
+        .skin-type-section.active {
+            display: block;
+        }
+        
+        .skin-type-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .skin-type-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .skin-type-header .skin-emoji {
+            font-size: 3rem;
+        }
+        
+        .skin-type-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .goals-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 1200px;       /* set to match your design */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .goals-section h4 {
+            color: var(--rose-gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .goals-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .goal-tag {
+            background-color: var(--mint-green);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+            max-width: 1200px;     /* limits how wide the grid can get */
+            margin: 0 auto; 
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-type-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            background-color: var(--oily-skin);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-category {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .product-ingredients {
+            margin-bottom: 20px;
+        }
+        
+        .ingredients-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .ingredients-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .ingredient-tag {
+            background-color: var(--ivory-white);
+            color: var(--text-dark);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid #e0e0e0;
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--rose-gold);
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-add-cart {
+            background-color: var(--mint-green) !important;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            flex: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-add-cart:hover {
+            background-color: #8bc4b8 !important;
+            transform: translateY(-2px);
+        }
+        
+        .btn-wishlist {
+            background-color: white;
+            color: var(--rose-gold);
+            border: 2px solid var(--rose-gold);
+            padding: 12px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-wishlist:hover {
+            background-color: var(--rose-gold);
+            color: white;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background-color: var(--mint-green);
+            padding: 50px 20px;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .newsletter-section h2 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .newsletter-section p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+        }
+        
+        .newsletter-section .btn-contact {
+            background-color: #ff7f50;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-section .btn-contact:hover {
+            background-color: #ff6b47;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer h5 {
+            color: var(--rose-gold);
+            margin-bottom: 20px;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer ul li a:hover {
+            color: var(--rose-gold);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #555;
+            margin-top: 30px;
+            color: #ccc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .skin-type-buttons {
+                gap: 10px;
+            }
+            
+            .skin-type-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .skin-type-header h2 {
+                font-size: 2rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="logo" href="index.html">
+                <div class="logo-icon"></div>
+                <h2>Glamorous</h2>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Product.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="SkinCaretools.html">Skincare Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="Skincareguide.html">Skincare Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="About.html">About</a>
+                    </li>
+                </ul>
+                
+                <div class="header-actions">
+                    <a href="#" class="btn-signin" onclick="return false;">Sign In</a>
+                    <div class="cart-icon" onclick="return false;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Products Section -->
+    <section class="products-section">
+        
+            <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Products by Skin Type</h1>
+            <p>Discover the perfect skincare routine tailored specifically for your skin type. Our curated collection features products designed to address your unique skin needs.</p>
+        </div>
+    </section>
+    
+    <!-- Skin Type Navigation -->
+    <section class="skin-type-nav">
+        <div class="container">
+            <div class="skin-type-buttons">
+                <a href="#oily-skin" class="skin-type-btn oily active" onclick="showSkinType('oily', this)">
+                    🌿 Oily Skin
+                </a>
+                <a href="#normal-skin" class="skin-type-btn normal" onclick="showSkinType('normal', this)">
+                    ✨ Normal Skin
+                </a>
+                <a href="#dry-skin" class="skin-type-btn dry" onclick="showSkinType('dry', this)">
+                    💧 Dry Skin
+                </a>
+               
+                    
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="products-section">
+        
+            
+            <!-- Oily Skin Products -->
+            <div id="oily-skin" class="skin-type-section active">
+                <div class="skin-type-header">
+                    <h2><span class="skin-emoji">🌿</span> Oily Skin Products</h2>
+                    <p>Control excess oil production and maintain clear, balanced skin with our specialized oily skin collection.</p>
+                </div>
+				
+                
+                <div class="goals-section">
+                    <h4><i class="fas fa-bullseye"></i> Skincare Goals</h4>
+                    <div class="goals-list">
+                        <span class="goal-tag">Control excess oil</span>
+                        <span class="goal-tag">Prevent acne</span>
+                        <span class="goal-tag">Keep pores clear</span>
+                        <span class="goal-tag">Mattify skin</span>
+                    </div>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image"> <img src="Images/Home Page/Best Sellers/cleansing oil/oil.jpg"alt="oil"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Cleanser</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Daily Cleanser</div>
+                            <div class="product-name">Oil Control Foaming Cleanser</div>
+                            <div class="product-description">Effectively removes makeup, sunscreen, and excess sebum without clogging pores.Leaves the skin clean, refreshed, and balanced with a lightweight,non-greasy finish.A gentle cleansing oil formulated with Heartleaf extract to soothe sensitive skin.This serum deeply hydrates and brightens the skin.  
+                        </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Salicylic Acid</span>
+                                    <span class="ingredient-tag">Tea </span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.4999</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/Best Sellers/t.jpg"alt="s1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Toner</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">GENTLE Exfoliating SCRUB</div>
+                            <div class="product-name">Pore Refining Toner</div>
+                            <div class="product-description">La Roche-Posay Effaclar Clarifying Solution is a gentle exfoliating toner designed for oily and acne-prone skin.It contains Salicylic Acid and Glycolic Acid, which help unclog pores and reduce excess oil.Regular use promotes clearer skin, minimizes breakouts, and improves overall skin texture.</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Witch Hazel</span>
+                                  <span class="ingredient-tag">Glycolic Acid</span>
+                                    <span class="ingredient-tag">Water</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.6990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images\Home Page\Best Sellers\Moisture/m1.jpg"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Moisturizer</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Daily Moisturizer</div>
+                            <div class="product-name">Oil-Free Hydrating Gel</div>
+                            <div class="product-description">Lightweight, non-comedogenic gel moisturizer for balanced hydration.A rich hydrating mask designed to deeply nourish dry and dehydrated skin.Infused with botanicals and antioxidants to restore moisture.This serum nourishes the skin while reducing fine lines.</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Shea Butter </span>
+                                    <span class="ingredient-tag">Cocoa Butte</span>
+                                    <span class="ingredient-tag">Vitamin E</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images\Home Page\Best Sellers\Suncreem/sun1.PNG"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Sunscreen</div>
+                        </div>
+						
+                        <div class="product-info">
+                            <div class="product-category">Daily Protection</div>
+                            <div class="product-name">Matte Finish Sun cream SPF 50</div>
+                            <div class="product-description">Oil-controlling sunscreen with matte finish for all-day protection.It helps prevent premature aging caused by UV rays while keeping the skin hydrated . Suitable for daily use lightweight formula offers moisturizes.
+
+ </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Zinc Oxide</span>
+                                    <span class="ingredient-tag">Vitamin E</span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.5990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images\Home Page\Best Sellers\mask\m1.jpg"alt="m1"width="300"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Mask</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Weekly Treatment</div>
+                            <div class="product-name">Vitamin C & Turmeric Clay Face Mask</div>
+                            <div class="product-description">Deep cleansing clay mask for weekly pore purification and oil control.This face mask combines the brightening power of Vitamin C with the anti-inflammatory benefits of turmeric. It deeply cleanses pores while improving complexion and reducing dark spots. Ideal for weekly use, it nourishes skin for a radiant, even tone.s</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Kaolin Clay</span>
+                                    <span class="ingredient-tag">Vitamin C</span>
+                                    <span class="ingredient-tag"> Aloe Vera</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            
+ <!-- Normal Skin Products -->
+            <div id="normal-skin" class="skin-type-section active">
+                <div class="skin-type-header">
+                  <h2><span class="skin-emoji">✨</span> Normal Skin Products</h2>
+                    <p>Maintain your skin’s natural balance with our gentle and nourishing normal skin essentials. </p>
+                </div>
+                
+                <div class="goals-section">
+                    <h4><i class="fas fa-bullseye"></i> Skincare Goals</h4>
+                    <div class="goals-list">
+                        <span class="goal-tag normal skin">Maintain skin balance </span>
+                        <span class="goal-tag normal skin">Enhance natural glow </span>
+                        <span class="goal-tag normal skin"> Keep skin smooth and hydrate</span>
+                        <span class="goal-tag normal skin">Protect from environmental damage  
+</span>
+                    </div>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image"> <img src="Images\Home Page\normal skin\c/g1.JPG"alt="g1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Cleanser</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Daily Cleanser</div>
+                            <div class="product-name">Gentle Skin Cleanser</div>
+                            <div class="product-description">A mild, non-irritating formula suitable for all skin types, including sensitive ski  
+ Gently cleanses without stripping natural oils or drying out the skin.  
+Soap free and fragrance-free ideal for daily use on face and body.  
+Dermatologist recommended and clinically proven to hydrate while cleansing.  
+  
+                          </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                    <span class="ingredient-tag"> Salicylic Acid</span>
+                                    <span class="ingredient-tag"> Tea </span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.4990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/normal skin/c/t5.jpg"alt="s1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Toner</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">GENTLE Exfoliating SCRUB</div>
+                            <div class="product-name">Brightness Refresh Toner</div>
+                            <div class="product-description">Gentle, soap-free formula ideal for all skin types, including sensitive skin.Effectively cleanses without over-drying or irritating the skin.Dermatologist recommended for daily face and body use.Helps maintain the skin’s natural moisture barrier.Non comedogenic  free for everyday use.
+                        </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Water</span>
+                                  <span class="ingredient-tag">Cetyl Alcohol</span>
+                                  <span class="ingredient-tag">Glycerin</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/normal skin/c/s.jpg"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Moisturizer</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Daily Moisturizer</div>
+                            <div class="product-name">Moisturizing Cream&nbsp;</div>
+                            <div class="product-description">This gentle cleanser is specially designed for oily and acne-prone skin.It effectively removes dirt, excess oil, and impurities without over-drying.Infused with Tea Tree Oil and Salicylic Acid to help unclog pores and reduce breakouts.It deeply cleanses the skin while helping to reduce breakouts.</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Tea</span>
+                                    <span class="ingredient-tag">Salicylic Acid</span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.4990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/normal skin/c/b2.jpg"alt="m1"width="350"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Sunscreen</div>
+                        </div>
+						
+                        <div class="product-info">
+                            <div class="product-category">Daily Protection</div>
+                            <div class="product-name">Daily Multi Protection</div>
+                            <div class="product-description">A gentle yet powerful foaming cleanser designed for oily and acne-prone skin.Helps remove dirt, oil, and impurities without over drying.Enriched with Salicylic Acid and Tea Tree Oil to clarify and soothe the skin.This cleanser gently removes impurities while helping to control excess oil for a refreshed.
+
+                          </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Salicylic Acid</span>
+                                    <span class="ingredient-tag"> Tea </span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.5990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/normal skin/c/o.png"alt="m1"width="350"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Serum</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Weekly Treatment</div>
+                            <div class="product-name"> Radiance Boosting Serum</div>
+                            <div class="product-description">A gentle foaming cleanser designed for oily and acne prone skin.Effectively removes dirt, oil, and makeup without over drying.Leaves skin feeling fresh, clean, and balanced.</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Salicylic Acid</span>
+                                    <span class="ingredient-tag">Tea </span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			 <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            
+ <!-- Normal Skin Products -->
+            <div id="dry-skin" class="skin-type-section active">
+                <div class="skin-type-header">
+                  <h2><span class="skin-emoji"> 💧 </span> Dry Skin Products</h2>
+                    <p>Deeply hydrate and nourish dry skin with our soothing, rich formulas that restore natural moisture balance.</p>
+                </div>
+                
+                <div class="goals-section">
+                    <h4><i class="fas fa-bullseye"></i> Skincare Goals</h4>
+                    <div class="goals-list">
+                        <span class="goal-tag normal skin">Hydrate skin</span>
+                        <span class="goal-tag normal skin"> Protect from sun</span>
+                        <span class="goal-tag normal skin"> Reduce dryness </span>
+                        <span class="goal-tag normal skin">Improve texture</span>
+                    </div>
+                </div>
+                
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image"> <img src="Images/Home Page/dry skin/cleanser/c1.png"alt="g1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Cleanser</div>
+                        </div>
+                        <div class="product-info">
+                          <div class="product-category">Daily Cleanser</div>
+                            <div class="product-name">CeraVe Hydrating Cleanser</div>
+                            <div class="product-description">Gently cleanses while hydrating normal to dry skin.Maintains skin’s moisture barrier with essential ceramides. Fragrance free and ideal for daily use on face and body.Dermatologist developed formula suitable for sensitive skin.Helps restore skin’s natural protective barrier.Provides long lasting hydration throughout the day. Leaves skin feeling soft and refreshed.It contains soothing botanical extracts nourish the skin.
+
+ 
+  
+                          </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag"> Ceramides</span>
+                                    <span class="ingredient-tag"> Hyaluronic Acid </span>
+                                    <span class="ingredient-tag">  Glycerin</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/dry skin/cleanser/c6.jpg"alt="s1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Toner</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">GENTLE Exfoliating SCRUB</div>
+                            <div class="product-name">Supple Preparation Unscented Toner</div>
+                            <div class="product-description">Klairs Supple Preparation Unscented Toner deeply hydrates and balances the skin’s pH.It is fragrance-free and suitable for sensitive skin types.This toner preps the skin to better absorb serums and moisturizers. Klairs Supple Preparation Unscented Toner deeply hydrates and balances the skin’s pH.  It is fragrance-free and suitable for sensitive skin types.This toner preps the skin to better absorb serums & moisturizers.
+</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Water</span>
+                                  <span class="ingredient-tag">Beta Glucan </span>
+                                  <span class="ingredient-tag">Glycerin</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.5990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/dry skin/cleanser/m1.jpg"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Moisturizer</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Daily Moisturizer</div>
+                            <div class="product-name">Vanicream Moisturizing Cream&nbsp;</div>
+                            <div class="product-description">A lightweight moisturizer ideal for sensitive skin.Formulated with hyaluronic acid and ceramides for lasting hydration.Free of dyes, fragrance, parabens, and other irritants.Perfect for daily use to restore and protect your skin’s moisture barrier.Helps keep your skin soft, smooth, and hydrated all day.Sensitive skin friendly, free from harmful chemicals.Skin stays moisturized all day.  
+</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Hyaluronic Acid</span>
+                                    <span class="ingredient-tag">Ceramides</span>
+                                    <span class="ingredient-tag">Niacinamide</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/dry skin/cleanser/ce.jpg"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Sunscreen</div>
+                        </div>
+						
+                        <div class="product-info">
+                            <div class="product-category">Daily Protection</div>
+                            <div class="product-name">Daily Multi Protection</div>
+                            <div class="product-description">Provides high SPF 50+ protection against harmful UV rays.Lightweight gel texture ideal for daily use.Enriched with Vitamin E to nourish and protect the skin.Suitable for all skin types including sensitive skin.Offers broad-spectrum, very water resistant sun protection.
+
+                          </div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag">Zinc Oxide</span>
+                                    <span class="ingredient-tag">Titanium Dioxide </span>
+                                    <span class="ingredient-tag">Vitamin E</span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.4990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image"><img src="Images/Home Page/dry skin/cleanser/n3.jpg"alt="m1"width="400"height="200">
+                            <div class="product-type-badge" style="background-color: var(--oily-skin);">Night Cream</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">Overnight Treatment&nbsp;</div>
+                            <div class="product-name"> Radiance Boosting Serum</div>
+                            <div class="product-description">Cetaphil Sun SPF 50+ provides high broad-spectrum protection against UVA and UVB rays.It is water resistant and ideal for outdoor use.Suitable for dry skin. Enriched with Vitamin E to protect the skin.Lightweight gel texture absorbs without leaving a greasy feel.</div>
+                            <div class="product-ingredients">
+                                <div class="ingredients-label">Key Ingredients:</div>
+                                <div class="ingredients-list">
+                                    <span class="ingredient-tag"> Octocrylene</span>
+                                    <span class="ingredient-tag">Avobenzone  </span>
+                                    <span class="ingredient-tag">Vitamin E </span>
+                                </div>
+                            </div>
+                            <div class="product-price">Rs.3990</div>
+                            <div class="product-actions">
+                                <button class="btn-add-cart">Add to Cart</button>
+                                <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+								
+							
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<div style="background-color:#a9c4c1; padding:50px 20px; text-align:center; font-family: Arial, sans-serif;">
+                <h2 style="color:#4a443e; margin-bottom:10px;">Find Your, Ideal Skincare</h2>
+                <p style="color:#6e6a64; margin-bottom:30px; max-width:600px; margin-left:auto; margin-right:auto;">
+                    Subscribe to our newsletter for the latest skincare tips, product launches, and exclusive offers.
+                </p>
+                                <a href="contact.html" style="background-color:#ff7f50; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Contact Us</a>
+
+            </div>
+            </div>
+        </section>
+        </body>
+        </html>
+
+
+
+	
+		
+   
+
+					
+					
+

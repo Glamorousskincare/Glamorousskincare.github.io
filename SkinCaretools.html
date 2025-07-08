@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare Tools - Glamorous Natural Beauty Solutions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ivory-white: #FFF8F0;
+            --rose-gold: #E8B4A0;
+            --mint-green: #9FD3C7;
+            --text-dark: #333;
+            --text-light: #666;
+            --accent-light: #f5f0e8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--ivory-white);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        .navbar {
+            background-color: var(--ivory-white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--mint-green), #8bc4b8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(159, 211, 199, 0.3);
+        }
+        .logo-icon::before {
+            content: '🌿';
+            font-size: 24px;
+        }
+        .logo h2 { color: var(--rose-gold); margin: 0; font-size: 2rem; }
+        .navbar-nav .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--rose-gold);
+        }
+        .header-actions { display: flex; align-items: center; gap: 20px; }
+        .btn-signin {
+            background-color: var(--rose-gold);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-signin:hover { background-color: #d4a087; color: white; transform: translateY(-2px);}
+        .cart-icon {
+            position: relative;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .cart-icon:hover { color: var(--rose-gold);}
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--mint-green);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .page-header {
+            background: linear-gradient(135deg, var(--ivory-white) 0%, var(--accent-light) 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><path d="M0,320L48,301.3C96,283,192,245,288,229.3C384,213,480,219,576,240C672,261,768,299,864,298.7C960,299,1056,261,1152,245.3L1200,240L1200,400L1152,400C1056,400,960,400,864,400C768,400,672,400,576,400C480,400,384,400,288,400C192,400,96,400,48,400L0,400Z" fill="%23E8B4A0" opacity="0.1"/></svg>') no-repeat bottom center;
+            background-size: cover;
+            pointer-events: none;
+        }
+        .page-title { font-size: 3.5rem; color: var(--text-dark); margin-bottom: 20px; font-weight: 700; }
+        .page-subtitle { font-size: 1.3rem; color: var(--text-light); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .filter-section { background-color: white; padding: 40px 0; border-bottom: 1px solid #eee; }
+        .filter-controls { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;}
+        .filter-btn {
+            background-color: var(--ivory-white);
+            color: var(--text-dark);
+            border: 2px solid var(--mint-green);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .filter-btn:hover, .filter-btn.active { background-color: var(--mint-green); color: white; transform: translateY(-2px);}
+        .sort-dropdown {
+            padding: 10px 20px;
+            border: 2px solid var(--mint-green);
+            border-radius: 25px;
+            background-color: white;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        .tools-section { padding: 60px 0; background-color: white;}
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .tool-card {
+            background-color: var(--ivory-white);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--mint-green);
+            box-shadow: 0 20px 50px rgba(159, 211, 199, 0.3);
+        }
+        .tool-image {
+            width: 100%;
+            height: 250px;
+            /* background: linear-gradient(135deg, var(--mint-green), #8bc4b8); */
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .tool-info { padding: 25px; }
+        .tool-name { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 12px; font-weight: 600;}
+        .tool-description { color: var(--text-light); margin-bottom: 15px; line-height: 1.6; font-size: 0.95rem;}
+        .tool-benefits { list-style: none; padding: 0; margin-bottom: 20px;}
+        .tool-benefits li { color: var(--text-light); margin-bottom: 5px; position: relative; padding-left: 20px; font-size: 0.9rem;}
+        .tool-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--mint-green);
+            font-weight: bold;
+        }
+        .tool-price { font-size: 1.5rem; color: var(--rose-gold); font-weight: bold; margin-bottom: 15px;}
+        .tool-rating { color: #ffc107; margin-bottom: 20px;}
+        .tool-actions { display: flex; gap: 10px; align-items: center;}
+        .btn-add-cart {
+            background-color: var(--mint-green);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            flex: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover { background-color: #8bc4b8; transform: translateY(-2px);}
+        .btn-wishlist {
+            background-color: white;
+            color: var(--rose-gold);
+            border: 2px solid var(--rose-gold);
+            padding: 12px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-wishlist:hover { background-color: var(--rose-gold); color: white;}
+        .sale-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--rose-gold);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .page-title { font-size: 2.5rem; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .filter-controls { flex-direction: column; gap: 15px; }
+            .logo h2 { font-size: 1.5rem;}
+            .tool-actions { flex-direction: column;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="logo" href="#home">
+                <div class="logo-icon"></div>
+                <h2>Glamorous</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link " href="Product.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="SkinCaretools.html">Skincare Tools</a></li>
+                    <li class="nav-item"><a class="nav-link " href="Skincareguide.html">Skincare Guide</a></li>
+                    <li class="nav-item"><a class="nav-link " href="About.html">About</a></li>
+                </ul>
+                <div class="header-actions">
+                    <a href="#signin" class="btn-signin">Sign In</a>
+                    <div class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Skincare Tools</h1>
+            <p class="page-subtitle">
+                Elevate your skincare routine with our professional-grade tools designed to enhance your natural beauty and promote healthy, radiant skin.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-controls">
+                <button class="filter-btn active">All Tools</button>
+                <button class="filter-btn">Massage Tools</button>
+                <button class="filter-btn">Cleansing Tools</button>
+                <button class="filter-btn">Treatment Tools</button>
+                <select class="sort-dropdown">
+                    <option value="default">Sort by</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="tools-grid" id="toolsGrid">
+                <!-- Each product card below: -->
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/r1.jpg" alt="Facial Roller">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Facial Roller</h3>
+                        <p class="tool-description">Rose quartz facial roller for lymphatic reducing puffiness.</p>
+                        <ul class="tool-benefits">
+                            <li>Reduces facial puffiness</li>
+                            <li>Improves blood circulation</li>
+                            <li>Promotes lymphatic drainage</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.8)</span>
+                        </div>
+                        <div class="tool-price">Rs. 2,999</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/stone.jpg" alt="Gua Sha Stone">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Gua Sha Stone</h3>
+                        <p class="tool-description">Traditional jade gua sha stone for facial sculpting and tension relief.</p>
+                        <ul class="tool-benefits">
+                            <li>Sculpts and defines facial contours</li>
+                            <li>Relieves facial tension</li>
+                            <li>Enhances product absorption</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.7)</span>
+                        </div>
+                        <div class="tool-price">Rs. 1,999</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/cl brush 1.jpg" alt="Cleansing Brush">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Cleansing Brush</h3>
+                        <p class="tool-description">Electric sonic cleansing brush for deep pore cleaning and exfoliation.</p>
+                        <ul class="tool-benefits">
+                            <li>Deep cleanses pores</li>
+                            <li>Gentle exfoliation</li>
+                            <li>Removes makeup residue</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.9)</span>
+                        </div>
+                        <div class="tool-price">Rs. 4,999</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="sale-badge">SALE</div>
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/l mask.jpg" alt="LED Light Therapy Mask">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">LED Light Therapy Mask</h3>
+                        <p class="tool-description">Professional LED light therapy mask for acne treatment.</p>
+                        <ul class="tool-benefits">
+                            <li>Reduces acne and inflammation</li>
+                            <li>Stimulates collagen production</li>
+                            <li>Assists with recovery after brea</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.6)</span>
+                        </div>
+                        <div class="tool-price">Rs. 12,999</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/d r.jpg" alt="Derma Roller">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Derma Roller</h3>
+                        <p class="tool-description">0.5mm derma roller for improved skin texture and product absorption.</p>
+                        <ul class="tool-benefits">
+                            <li>Stimulates collagen production</li>
+                            <li>Reduces fine lines</li>
+                            <li>Improves product penetration</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.5)</span>
+                        </div>
+                        <div class="tool-price">Rs. 3,999</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/pe.jpg" alt="Pore Extractor Tool">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Pore Extractor Tool</h3>
+                        <p class="tool-description">Professional-grade pore extractor for safe blackhead removal.</p>
+                        <ul class="tool-benefits">
+                            <li>Safely removes blackheads</li>
+                            <li>Prevents skin damage</li>
+                            <li>Stainless steel construction</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.4)</span>
+                        </div>
+                        <div class="tool-price">Rs. 1,499</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-image">
+                        <img src="Images/third page/facial roller/s face.jpg" alt="Silicone Face Scrubber">
+                    </div>
+                    <div class="tool-info">
+                        <h3 class="tool-name">Silicone Face Scrubber</h3>
+                        <p class="tool-description">Gentle silicone face scrubber for daily cleansing and exfoliation.</p>
+                        <ul class="tool-benefits">
+                            <li>Gentle daily exfoliation</li>
+                            <li>Hygienic and easy to clean</li>
+                            <li>Suitable for sensitive skin</li>
+                        </ul>
+                        <div class="tool-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(4.6)</span>
+                        </div>
+                        <div class="tool-price">Rs. 899</div>
+                        <div class="tool-actions">
+                            <button class="btn-add-cart">Add to Cart</button>
+                            <button class="btn-wishlist"><i class="fas fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / Contact Section -->
+    <section>
+        <div style="background-color:#a9c4c1; padding:50px 20px; text-align:center; font-family: Arial, sans-serif;">
+            <h2 style="color:#4a443e; margin-bottom:10px;">Find Your Ideal Skincare</h2>
+            <p style="color:#6e6a64; margin-bottom:30px; max-width:600px; margin-left:auto; margin-right:auto;">
+                Subscribe to our newsletter for the latest skincare tips, product launches, and exclusive offers.
+            </p>
+            <a href="contact.html" style="background-color:#ff7f50; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Contact Us</a>
+        </div>
+    </section>
+</body>
+</html>

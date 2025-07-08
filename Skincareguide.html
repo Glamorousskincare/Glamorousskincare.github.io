@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Complete Skincare Guide - Glamorous</title>
+    <!-- Bootstrap CSS (optional, mainly for font and grid support) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --ivory-white: #FFF8F0;
+            --rose-gold: rgb(232, 180, 160);
+            --mint-green: #9FD3C7;
+            --text-dark: #333;
+            --card-shadow: 0 2px 16px rgba(200, 172, 146, 0.10);
+            --transition: 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+        html, body {
+            background: var(--ivory-white);
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: var(--ivory-white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--rose-gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, var(--mint-green), #8bc4b8);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 10px;
+        }
+        .logo-icon::before { content: "🌿"; font-size: 22px; }
+        .navbar-nav .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            margin: 0 14px;
+            transition: color var(--transition);
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            color: var(--rose-gold);
+        }
+        .btn-signin {
+            background: var(--rose-gold);
+            color: #fff;
+            border-radius: 25px;
+            border: none;
+            padding: 9px 22px;
+            font-weight: 500;
+            transition: all var(--transition);
+        }
+        .btn-signin:hover { background: #cfa98b; }
+        .cart-icon { font-size: 1.3rem; color: var(--text-dark); margin-left: 12px;}
+        .cart-icon:hover { color: var(--rose-gold);}
+        .cart-count { font-size: 0.9rem; color: #fff; background: var(--mint-green); border-radius: 50%; padding: 2px 7px; margin-left: 3px;}
+        .section { padding: 60px 0; }
+        .hero-title { font-size: 2.7rem; font-family: 'Playfair Display', serif; font-weight: 700; }
+        .hero-sub { font-size: 1.18rem; color: #847865; margin-bottom: 20px; }
+        .center { text-align: center;}
+        /* Journey Cards */
+        .journey-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 38px 0 35px 0;
+        }
+        .journey-card {
+            background: #faf5ef;
+            border-radius: 22px;
+            box-shadow: var(--card-shadow);
+            padding: 32px 26px 26px 26px;
+            flex: 1 1 220px;
+            max-width: 255px;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+        .journey-card:hover {
+            box-shadow: 0 6px 22px rgba(158,211,199,0.14);
+            transform: translateY(-7px) scale(1.02);
+        }
+        .journey-step {
+            font-size: 1.8rem;
+            color: var(--mint-green);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .journey-icon {
+            font-size: 2.2rem;
+            color: var(--rose-gold);
+            margin-bottom: 10px;
+        }
+        .journey-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 9px; color: var(--text-dark);}
+        .journey-desc { color: #8d8377; font-size: 0.99rem; text-align: center; margin-bottom: 16px;}
+        .journey-link {
+            color: #fff;
+            background: var(--rose-gold);
+            border-radius: 15px;
+            font-size: 0.98rem;
+            padding: 5px 16px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background var(--transition);
+        }
+        .journey-link:hover { background: #cfa98b; }
+
+        /* Dermatologist Cards */
+        .doctor-section {
+            background: #fff;
+            padding: 48px 0 65px 0;
+            margin: 0 0 30px 0;
+        }
+        .doctors-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .doctor-card {
+            background: #faf5ef;
+            border-radius: 24px;
+            box-shadow: 0 2px 10px rgba(232,180,160,0.10);
+            padding: 35px 28px 30px 28px;
+            max-width: 250px;
+            min-width: 190px;
+            text-align: center;
+            transition: box-shadow var(--transition), transform var(--transition);
+            position: relative;
+        }
+        .doctor-card:hover {
+            box-shadow: 0 8px 28px rgba(159,211,199,0.17);
+            transform: translateY(-6px) scale(1.015);
+        }
+        .doctor-img {
+            width: 85px; height: 85px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--mint-green);
+            margin-bottom: 12px;
+        }
+        .doctor-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--rose-gold);
+            font-weight: bold;
+        }
+        .doctor-title { font-size: 0.96rem; color: #70655d;}
+        .doctor-stars { color: #ffc107; margin: 7px 0 12px 0;}
+        .doctor-btn {
+            background: var(--mint-green);
+            color: #fff;
+            padding: 6px 16px;
+            border: none;
+            border-radius: 16px;
+            font-size: 0.99rem;
+            font-weight: 500;
+            margin-top: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background var(--transition);
+        }
+        .doctor-btn:hover { background: #7ec1b2; }
+        /* Steps Row */
+        .steps-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 150px;
+            max-width: 200px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 1px 8px rgba(232,180,160,0.06);
+            padding: 20px 12px 18px 12px;
+        }
+        .step-icon {
+            font-size: 1.8rem;
+            color: var(--rose-gold);
+            margin-bottom: 8px;
+        }
+        .step-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: black;
+            margin-bottom: 3px;
+        }
+        .step-desc { font-size: 0.98rem; color: #8d8377; text-align: center;}
+        @media (max-width: 1000px) {
+            .journey-grid, .doctors-grid, .steps-row { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="logo" href="#">
+                <div class="logo-icon"></div>
+                Glamorous
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Product.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="SkinCaretools.html">Skincare Tools</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="Skincareguide.html">Skincare Guide</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+                </ul>
+                <div class="header-actions">
+                    <a href="#signin" class="btn-signin">Sign In</a>
+                    <span class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="section center" style="padding-top:90px;">
+        <h1 class="hero-title">Your Complete Skincare Guide</h1>
+        <div class="hero-sub">Expert Advice. Personalized Care</div>
+        <div style="max-width: 700px; margin: 0 auto 18px auto; color:#776e60;">
+            Discover the perfect skincare routine for your unique needs with our comprehensive guide and get personalized advice from certified dermatologists through our online consultation service.
+        </div>
+    </section>
+    
+    <!-- Your Skincare Journey Cards -->
+    <section class="section" style="background:#fff;">
+        <h3 class="center" style="font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:4px;">Your Skincare Journey</h3>
+        <div class="center" style="color:#96866e; font-size:1.07rem;">Follow these easy steps to build your perfect skincare routine!</div>
+        <div class="journey-grid">
+            <div class="journey-card">
+                <div class="journey-step">1</div>
+                <div class="journey-icon"><i class="fas fa-search"></i></div>
+                <div class="journey-title">Identify Your Skin Type</div>
+                <div class="journey-desc">Take our comprehensive skin assessment quiz to determine your skin type and specific concerns.</div>
+                <a href="#" class="journey-link">Take Quiz</a>
+            </div>
+            <div class="journey-card">
+                <div class="journey-step">2</div>
+                <div class="journey-icon"><i class="fas fa-list-check"></i></div>
+                <div class="journey-title">Get Personalized Routine</div>
+                <div class="journey-desc">Receive a customized skincare routine with product recommendations based on your skin analysis.</div>
+                <a href="#" class="journey-link">View Routine</a>
+            </div>
+            <div class="journey-card">
+                <div class="journey-step">3</div>
+                <div class="journey-icon"><i class="fas fa-comments"></i></div>
+                <div class="journey-title">Consult with Experts</div>
+                <div class="journey-desc">Book an online consultation with certified dermatologists for professional skincare advice.</div>
+                <a href="#" class="journey-link">Book Consultation</a>
+            </div>
+            <div class="journey-card">
+                <div class="journey-step">4</div>
+                <div class="journey-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="journey-title">Track Your Progress</div>
+                <div class="journey-desc">Monitor your skin's improvement and adjust your routine with ongoing professional support..</div>
+                <a href="#" class="journey-link">Track Progress</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Dermatologists -->
+    <section class="doctor-section center">
+        <h3 class="center" style="font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:5px;">Meet Our Expert Dermatologists</h3>
+        <div style="color:#96866e; font-size:1.07rem; margin-bottom:24px;">
+            Get personalized skincare advice from certified dermatologists through secure online consultations.
+        </div>
+        <div class="doctors-grid">
+            <div class="doctor-card">
+                <img src="Images/4 th page/dr3.jpg" class="doctor-img" alt="Dr. Sahan Jayakody">
+                <div class="doctor-name">Dr. Sahan Jayakody</div>
+                <div class="doctor-title">Cosmetic Dermatologist</div>
+                <div class="doctor-stars">
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div style="font-size:0.93rem; color:#7c6e5d;">15+ years experience<br>Board Certified</div>
+                <a href="#" class="doctor-btn">Book Online</a>
+            </div>
+            <div class="doctor-card">
+                <img src="Images/4 th page/fd.jpg" class="doctor-img" alt="Dr. Wazed Imran">
+                <div class="doctor-name">Dr. Mishel Perera</div>
+                <div class="doctor-title">Consultant Dermatologist</div>
+                <div class="doctor-stars">
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div style="font-size:0.93rem; color:#7c6e5d;">12+ years experience<br>Online Specialist</div>
+                <a href="#" class="doctor-btn">Book Online</a>
+            </div>
+            <div class="doctor-card">
+                <img src="Images/4 th page/fd3.jpg" class="doctor-img" alt="Dr. Rashmi Hirath">
+                <div class="doctor-name">Dr. Thisuri Herath</div>   
+                <div class="doctor-title">Clinical Dermatologist</div>
+                <div class="doctor-stars">
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <div style="font-size:0.93rem; color:#7c6e5d;">10+ years experience<br>Research Lead</div>
+                <a href="#" class="doctor-btn">Book Online</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How Online Consultation Works -->
+    <section class="section center" style="padding-top:0;">
+        <h3 class="center" style="font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:4px; font-weight:500;">How Online Consultation Works</h3>
+        <div class="steps-row" style="margin-top:28px;">
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                <div class="step-title">Make Payment</div>
+                <div class="step-desc">Securely deposit consultation fee to doctor's account</div>
+            </div>
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="step-title">Schedule Appointment</div>
+                <div class="step-desc">Choose your preferred date and time slot</div>
+            </div>
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-video"></i></div>
+                <div class="step-title">Video Consultation</div>
+                <div class="step-desc">Connect with your dermatologist online.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon"><i class="fas fa-prescription-bottle-alt"></i></div>
+                <div class="step-title">Get Prescription</div>
+                <div class="step-desc">Receive personalized treatment plan</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
